@@ -33,9 +33,9 @@ def getArgs():
 
     return parser.parse_args()
 
+
 def create_freqdist(codebooks, n):
     bag_of_ngrams = []
-    fdist = FreqDist()
 
     for codebook in codebooks:
         bag_of_ngrams.extend(ngrams(codebook, n))
@@ -49,4 +49,4 @@ if __name__ == "__main__":
         codebooks = pickle.load(d)
 
     fd = create_freqdist(codebooks, args.N)
-    fd.plot(100)
+    fd.plot(50)

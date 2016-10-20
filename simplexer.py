@@ -132,6 +132,13 @@ def getArgs():
 
     return parser.parse_args()
 
+def find_all_files(directory):
+    for root, dirs, files in os.walk(directory):
+        yield root
+        for file in files:
+            yield os.path.join(root, file)
+
+
 if __name__ == "__main__":
     args = getArgs()
 
@@ -142,9 +149,8 @@ if __name__ == "__main__":
         # デバック用なのでcodebooksも初期化
         codebooks = []
     else:
-        for root, dirs, files in os.walk(args.source):
-            program_path_list = [os.path.join(root, f) for f in files]
-            program_path_list = filter(lambda p: os.path.splitext(p)[1] == ".py",
+        program_path_list = find_all_files(args.source)
+        program_path_list = filter(lambda p: os.path.splitext(p)[1] == ".py",
                                        program_path_list)
         try:
             with open(DATA_FILE, "rb") as d:

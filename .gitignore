@@ -91,5 +91,5 @@ target/
 
 data.dat
 
-source/*.py
+source/*
 .env
