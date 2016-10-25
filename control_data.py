@@ -4,7 +4,7 @@ import os
 import pickle
 import argparse
 
-DATA_FILE = "data.dat"
+DATA_FILE = "database/data.dat"
 
 
 def getArgs():
@@ -20,6 +20,13 @@ def getArgs():
     parser.add_argument(
         "-d", "--display",
         dest="display_flag",
+        action="store_true",
+        default=False,
+    )
+
+    parser.add_argument(
+        "-l", "--length",
+        dest="length_flag",
         action="store_true",
         default=False,
     )
@@ -43,3 +50,13 @@ if __name__ == "__main__":
             codebooks = []
 
         print codebooks
+
+    if args.length_flag:
+        try:
+            with open(DATA_FILE, "rb") as f:
+                codebooks = pickle.load(f)
+        except EOFError:
+            codebooks = []
+
+        print len(codebooks)
+
